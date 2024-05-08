@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "Maravillas_de_Espana-backend",
+    "name": "Maravillas_De_Espana-backend",
     "builds": [
         {
             "src": "index.js",

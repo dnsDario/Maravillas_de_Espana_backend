@@ -8,6 +8,8 @@ const ratingRoutes = require("./routes/rating.routes")
 require("dotenv").config();
 const app = express()
 
+port = process.env.PORT || 3000;
+
 var corsOptions = {
   //config. para cors abra conexion a la ruta elegida
   origin: process.env.HOST,
@@ -34,6 +36,6 @@ app.use("/api/actividades", activityRoutes)
 app.use("/api/provincias", provinceRoutes)
 app.use("/api/valoraciones", ratingRoutes)
 
-app.listen(process.env.PORT, () =>{
-    console.log('API funcionando en puerto 3000')
+app.listen(port, () =>{
+    console.log(`API funcionando en puerto ${port}`)
 })
