@@ -8,11 +8,11 @@ const ratingRoutes = require("./routes/rating.routes")
 require("dotenv").config();
 const app = express()
 
-port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 var corsOptions = {
   //config. para cors abra conexion a la ruta elegida
-  origin: process.env.HOST || 'https://marvillas-de-espana-frontend.vercel.app',
+  origin: 'https://marvillas-de-espana-frontend.vercel.app' || process.env.HOST,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
