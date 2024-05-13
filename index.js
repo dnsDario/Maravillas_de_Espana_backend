@@ -12,7 +12,7 @@ port = process.env.PORT || 3000;
 
 var corsOptions = {
   //config. para cors abra conexion a la ruta elegida
-  origin: 'https://marvillas-de-espana-frontend.vercel.app/',
+  origin: process.env.HOST || 'https://marvillas-de-espana-frontend.vercel.app',
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
