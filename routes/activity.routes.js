@@ -7,7 +7,7 @@ const {
   borrarActividadPorId,
   cambiarActividad,
 } = require("../controllers/activity.controller");
-const { estaAutenticado, esAdmin} = require("../middleware/auth.middleware");
+const { estaAutenticado, esAdmin, esAdminPro,} = require("../middleware/auth.middleware");
 
 /**
  * Ruta para buscar todas las actividades, las que corresponden a una provinciaId o las que correspondan a la query "?comunidad="
@@ -42,7 +42,7 @@ router.get("/:id", estaAutenticado, async (req, res) => {
 /**
  * Ruta para crear una nueva actividad
  */
-router.post("/", esAdmin, async (req, res) => {
+router.post("/", esAdminPro, async (req, res) => {
   try {
     const nuevaActividad = await crearActividad(req.body);
     return res.json({msg: "actividad creada con éxito", nuevaActividad})
@@ -55,7 +55,7 @@ router.post("/", esAdmin, async (req, res) => {
 /**
  * Ruta para borrar la actividad a la que corresponde es id
  */
-router.delete("/:id", esAdmin, async (req, res) => {
+router.delete("/:id", esAdminPro, async (req, res) => {
   try{
   const actividadBorrada = await borrarActividadPorId(req.params.id)
   return res.json({msg: "actividad elminada: ", actividadBorrada })
@@ -67,7 +67,7 @@ router.delete("/:id", esAdmin, async (req, res) => {
   /**
    * Ruta para modificar la actividad con dicho id de parámetro
    */
-router.put("/:id", esAdmin, async (req, res) => {
+router.put("/:id", esAdminPro, async (req, res) => {
   try {
     const actividadModificada = await cambiarActividad(req.params.id, req.body);
     return res

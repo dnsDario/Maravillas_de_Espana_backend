@@ -10,7 +10,7 @@ conts = {
   
 } = require("../controllers/rating.controller")
 
-const {esAdmin, estaAutenticado} = require("../middleware/auth.middleware");
+const {esAdmin, esAdminPro, estaAutenticado} = require("../middleware/auth.middleware");
 
 /**
  * Esta ruta busca las valoraciones de las actividades con la query "?actividad=", o mediante la query de "?usuario=", que sería el id del usuario aunque el controlador nos devuelva exclusivamente los atributos solicitados del usuario con ese id.
@@ -71,7 +71,7 @@ router.post("/",  estaAutenticado,  async(req, res)=>{
 /**
  * Esta ruta se usa para borrar la valoración cuyo id viene en el parámetro
  */
-router.delete("/:id", esAdmin, async(req, res)=>{
+router.delete("/:id", esAdminPro, async(req, res)=>{
   try{
     const valoracionBorrada = await borrarValoracion(req.params.id)
     return res.json({msg: "su valoración ha sido borrada con éxito", valoracionBorrada});

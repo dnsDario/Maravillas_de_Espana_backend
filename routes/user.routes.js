@@ -11,7 +11,7 @@ const {
   borrarUsuario,
 } = require("../controllers/user.controller");
 
-const {estaAutenticado, esAdmin} = require("../middleware/auth.middleware");
+const {estaAutenticado, esAdmin, esAdminPro} = require("../middleware/auth.middleware");
 const {pwdIguales, middleWareVerifYCambioContrasena} = require ("../middleware/usuario.middleware")
 
 
@@ -38,7 +38,7 @@ router.post("/registrar", pwdIguales, async (req, res) => {
     const usuarioRegistrado = await registrar(req.body);
     return res.json({ msg: "registro correcto", usuarioRegistrado });
   } catch (error) {
-    res.status(500).json({ msg: "error al registrase" });
+    return res.status(500).json({ msg: "error al registrase" });
   }
 });
 
@@ -92,10 +92,10 @@ router.patch(
     try {
       const usuarioAModificarContrasena = await cambiarContrasena(req.params.id, req.body.nuevaPassword);
       const nombreUsuario = usuarioAModificarContrasena.name;
-      res
+      return res
         .json({ msg: `la contraseña ha sido modificada con éxito ${nombreUsuario}`});
     } catch (error) {
-      res.status(500).json({ msg: "error interno del servidor" });
+      return res.status(500).json({ msg: "error interno del servidor" });
       console.error(error);
     }
   }
@@ -105,7 +105,7 @@ router.patch(
 /*
  * En esta ruta introduciremos el id del usuario que se desea borrar mediante un input de formulario
  */
-router.delete("/:id", estaAutenticado, async (req, res) => {
+router.delete("/:id", esAdminPro, async (req, res) => {
   try {
     const usuarioBorrado = await borrarUsuario(req.params.id);
     return res.status(200).json({ msg: "usuario eliminado: ", usuarioBorrado });
